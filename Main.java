@@ -17,6 +17,17 @@ public class Main {
 		myStack = new MyStack<>();
 		myQueue = new MyQueue<>();
 		
+		Long totalStackPushTime;
+		Long totalStackPoptime;
+		Long totalQueueEnqueueTime;
+		Long totalQueueDequeueTime;
+		
+		int stackPushCount;
+		int stackPopCount;
+		int queueEnqueueCount;
+		int queueDequeueCount;
+		
+		
 		if(args.length == 0) {	
 			stack.push(20);
 			stack.push(30);
@@ -58,20 +69,29 @@ public class Main {
 								next = fileInput.nextInt();
 								
 								stack.push(next);
+								//add time to totalStackPushTime
+								//add 1 to stackPushCount
 								break;
 							case "POP":
 								next = stack.pop();
+								//add to totalStackPoptime
+								//add 1 to stackPopCount
 								break;
 							case "FINDMAX":
 								next = stack.getMax();
+								//Calculate max time
 								break;
 							case "ENQUEUE":
 								next = fileInput.nextInt();
 								
 								queue.enqueue(next);
+								//add to totalQueueEnqueueTime
+								//add 1 to queueEnqueueCount
 								break;
 							case "DEQUEUE":
 								next = queue.dequeue();
+								//add to totalQueueDequeueTime
+								//add 1 to queueEnqueueCount
 								break;
 						}
 						
