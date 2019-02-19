@@ -5,13 +5,12 @@ import java.util.NoSuchElementException;
 
 public class Stack<Item extends Comparable> implements Iterable<Item>{
 	private int n;
-	private Node<Item> first;
-	private Node<Item> max;
+	private Node first;
+	private Item max;
 	
-	private class Node<Item> {
+	private class Node {
 		private Item item;
-		private Node<Item> first;
-		private Node<Item> next;
+		private Node next;
 	}
 	
     public boolean isEmpty() {
@@ -33,10 +32,10 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
 	
     public void push(Item item) {
         Node oldfirst = first;
-        first = new Node<Item>();
+        first = new Node();
         first.item = item;
         if(first.item.compareTo(oldfirst.item) > 0) {
-        	max = first;
+        	max = (Item) first;
         }
         first.next = oldfirst;
         n++;
