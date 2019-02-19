@@ -8,6 +8,9 @@ public class Queue<Item extends Comparable> implements Iterable<Item> {
 	private Node first;
 	private Node last;
 	
+	private Long enqueueTime;
+	private Long dequeueTime;
+	
 	private class Node {
 		private Item item;
 		private Node next;
@@ -33,6 +36,7 @@ public class Queue<Item extends Comparable> implements Iterable<Item> {
     }
     
     public void enqueue(Item item) {
+    	Long enqueueStart = System.nanoTime();
         Node oldlast = last;
         last = new Node();
         last.item = item;
@@ -40,14 +44,17 @@ public class Queue<Item extends Comparable> implements Iterable<Item> {
         if (isEmpty()) first = last;
         else oldlast.next = last;
         n++;
+	enqueueTime = System.nanoTime() - enqueueStart;
     }
     
     public Item dequeue() {
+   	Long dequeueStart = System.nanoTime();
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Item item = first.item;
         first = first.next;
         n--;
         if (isEmpty()) last = null;   // to avoid loitering
+	dequeueTime = System.nanoTime() - dequeueStart;
         return item;
     }
     
