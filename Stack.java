@@ -9,6 +9,9 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
 	private Node first;
 	private Item max;
 	
+	private Long pushTime;
+	private Long popTime;
+	
 	private class Node {
 		private Item item;
 		private Node next;
@@ -43,6 +46,7 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
 	}
 	
     public void push(Item item) {
+	pushStart = System.nanoTime();
         Node oldfirst = first;
         first = new Node();
         first.item = item;
@@ -51,9 +55,11 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
         }
         first.next = oldfirst;
         n++;
+	Long pushTime = Systemm.nanoTime() - pushStart;
     }
 	
     public Item pop() {
+	Long popStart = System.nanoTime();
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
         Item item = first.item;        // save item to return
         first = first.next;            // delete first node
@@ -62,7 +68,8 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
 	if(max != null && data.compareTo(max.data) == 0) {
 		max = null;
 		newMax();
-		}    
+		}
+	popTime = System.nanoTime() - popStart;
         return item;                   // return the saved item
     }
     
