@@ -6,6 +6,9 @@ public class MyQueue<Item extends Comparable> implements Iterable<Item> {
 	private Stack<Item> s1;
 	private Stack<Item> s2;
 	
+	private Long enqueueTime;
+	private Long dequeueTime;
+	
 	public MyQueue() {
 		s1 = new Stack<>();
 		s2 = new Stack<>();
@@ -20,15 +23,19 @@ public class MyQueue<Item extends Comparable> implements Iterable<Item> {
 	}
 	
 	public void enqueue(Item item) {
+		Long enqueueStart = System.nanoTime();
 		s1.push(item);
+		dequeueTime = System.nanoTime - enqueueStart;
 	}
 	
 	public Item dequeue() {
+		Long dequeueStart = System.nanoTime();
 		if(s2.isEmpty()) {
 			while(!s1.isEmpty()) {
 				s2.push(s1.pop());
 			}
 		}
+		dequeueTime = System.nanotime() - dequeueStart;
 		return (Item) s2.pop();
 	}
 	
