@@ -2,6 +2,7 @@ package hw2_cs3310_Allevato;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.EmptyStackException;
 
 public class Stack<Item extends Comparable> implements Iterable<Item>{
 	private int n;
@@ -22,6 +23,7 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
     }
     
     public Item getMax() {
+	if(isEmpty()) throw new EmptyStackException();
     	return max;
     }
     
@@ -56,6 +58,11 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
         Item item = first.item;        // save item to return
         first = first.next;            // delete first node
         n--;
+	    
+	if(max != null && data.compareTo(max.data) == 0) {
+		max = null;
+		newMax();
+		}    
         return item;                   // return the saved item
     }
     
