@@ -24,6 +24,16 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
     public Item getMax() {
     	return max;
     }
+    
+    public void newMax(){
+	Stack<Item> maxFinder = new Stack<>();
+	while(!this.isEmpty()) {
+		maxFinder.push(this.pop());
+	}
+	while(!secondaryStack.isEmpty()) {
+		this.push(maxFinder.pop());
+	}
+    }
 
 	public Stack() {
 		first = null;
