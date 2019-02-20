@@ -4,17 +4,23 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.EmptyStackException;
 
-public class Stack<Item extends Comparable> implements Iterable<Item>{
+public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 	private int n;
 	private Node first;
 	private Item max;
 	
-	private Long pushTime;
-	private Long popTime;
+	public Long pushTime;
+	public Long popTime;
+	public Long maxTime;
 	
 	private class Node {
 		private Item item;
 		private Node next;
+	}
+	
+	public Stack() {
+		first = null;
+		int n = 0;
 	}
 	
     public boolean isEmpty() {
@@ -26,36 +32,39 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
     }
     
     public Item getMax() {
-	if(isEmpty()) throw new EmptyStackException();
+    	Long maxStart = System.nanoTime();
+    	if(isEmpty()) throw new EmptyStackException();
+    	maxTime  = System.nanoTime() - maxStart;
     	return max;
     }
     
     public void newMax(){
-	Stack<Item> maxFinder = new Stack<>();
-	while(!this.isEmpty()) {
-		maxFinder.push(this.pop());
+    	Stack<Item> maxFinder = new Stack<>();
+    	while(!this.isEmpty()) {
+    		maxFinder.push(this.pop());
 	}
-	while(!secondaryStack.isEmpty()) {
-		this.push(maxFinder.pop());
-	}
+    	while(!maxFinder.isEmpty()) {
+			this.push(maxFinder.pop());
+		}
     }
-
-	public Stack() {
-		first = null;
-		int n = 0;
-	}
 	
     public void push(Item item) {
-	pushStart = System.nanoTime();
-        Node oldfirst = first;
-        first = new Node();
-        first.item = item;
-        if(first.item.compareTo(oldfirst.item) > 0) {
-        	max = (Item) first;
-        }
-        first.next = oldfirst;
-        n++;
-	Long pushTime = Systemm.nanoTime() - pushStart;
+    	Long pushStart = System.nanoTime();
+    	if(first == null) {
+    		first.item = item;  
+    		max = (Item) first;
+    	}
+    	else {
+	        Node oldfirst = first;
+	        first = new Node();
+	        first.item = item;
+	        if(first.item.compareTo(oldfirst.item) > 0) {
+	        	max = (Item) first;
+	        }
+	        first.next = oldfirst;
+    	}
+    	n++;
+    	Long pushTime = System.nanoTime() - pushStart;
     }
 	
     public Item pop() {
@@ -65,7 +74,7 @@ public class Stack<Item extends Comparable> implements Iterable<Item>{
         first = first.next;            // delete first node
         n--;
 	    
-	if(max != null && data.compareTo(max.data) == 0) {
+	if(max != null && item.compareTo(first.item) == 0) {
 		max = null;
 		newMax();
 		}
