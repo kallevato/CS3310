@@ -3,13 +3,13 @@ package hw2_cs3310_Allevato;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Queue<Item extends Comparable> implements Iterable<Item> {
+public class Queue<Item extends Comparable<Item>> implements Iterable<Item> {
 	private int n;
 	private Node first;
 	private Node last;
 	
-	private Long enqueueTime;
-	private Long dequeueTime;
+	public Long enqueueTime;
+	public Long dequeueTime;
 	
 	private class Node {
 		private Item item;
