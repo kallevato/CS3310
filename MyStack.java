@@ -3,7 +3,7 @@ package hw2_cs3310_Allevato;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyStack<Item extends Comparable> implements Iterable<Item> {
+public class MyStack<Item extends Comparable<Item>> implements Iterable<Item> {
 	private Queue<Item> q1;
 	private Queue<Item> q2;
 	
@@ -36,7 +36,7 @@ public class MyStack<Item extends Comparable> implements Iterable<Item> {
 				q2.enqueue(q1.dequeue());
 			}
 		}
-		poptime = System.nanoTime() - popStart;
+		popTime = System.nanoTime() - popStart;
 		return (Item) q1.dequeue();
 	}
 
