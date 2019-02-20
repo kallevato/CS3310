@@ -6,16 +6,16 @@ import java.util.EmptyStackException;
 
 public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 	private int n;
-	private Node first;
-	private Item max;
+	public Node first;
+	public Node max;
 	
 	public Long pushTime;
 	public Long popTime;
 	public Long maxTime;
 	
-	private class Node {
-		private Item item;
-		private Node next;
+	public class Node {
+		public Item item;
+		public Node next;
 	}
 	
 	public Stack() {
@@ -35,7 +35,7 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
     	Long maxStart = System.nanoTime();
     	if(isEmpty()) throw new EmptyStackException();
     	maxTime  = System.nanoTime() - maxStart;
-    	return max;
+    	return max.item;
     }
     
     public void newMax(){
@@ -50,20 +50,22 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 	
     public void push(Item item) {
     	Long pushStart = System.nanoTime();
+    	first = new Node();
     	if(first == null) {
     		first.item = item;  
-    		max = (Item) first;
+    		max = first;
     	}
     	else {
 	        Node oldfirst = first;
-	        first = new Node();
 	        first.item = item;
 	        if(first.item.compareTo(oldfirst.item) > 0) {
-	        	max = (Item) first;
+	        	max = first;
 	        }
 	        first.next = oldfirst;
     	}
     	n++;
+    	System.out.println("Pushed: " + first.item);
+    	System.out.println("Max: " + max.item);
     	Long pushTime = System.nanoTime() - pushStart;
     }
 	
@@ -78,6 +80,8 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 		max = null;
 		newMax();
 		}
+	System.out.println("Popped: " + item);
+	System.out.println("Max: " + max.item);
 	popTime = System.nanoTime() - popStart;
         return item;                   // return the saved item
     }
