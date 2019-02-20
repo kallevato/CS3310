@@ -10,22 +10,22 @@ public class Main {
 	private static Queue<Integer> queue;
 	private static MyStack<Integer> myStack;
 	private static MyQueue<Integer> myQueue;
+	
+	private static Long totalStackPushTime;
+	private static Long totalStackPopTime;
+	private static Long totalQueueEnqueueTime;
+	private static Long totalQueueDequeueTime;
+	
+	private static int stackPushCount;
+	private static int stackPopCount;
+	private static int queueEnqueueCount;
+	private static int queueDequeueCount;
 
 	public static void main(String[] args) {
 		stack = new Stack<>();
 		queue = new Queue<>();
 		myStack = new MyStack<>();
 		myQueue = new MyQueue<>();
-		
-		Long totalStackPushTime;
-		Long totalStackPoptime;
-		Long totalQueueEnqueueTime;
-		Long totalQueueDequeueTime;
-		
-		int stackPushCount;
-		int stackPopCount;
-		int queueEnqueueCount;
-		int queueDequeueCount;
 		
 		
 		if(args.length == 0) {	
@@ -69,13 +69,13 @@ public class Main {
 								next = fileInput.nextInt();
 								
 								stack.push(next);
-								//add time to totalStackPushTime
-								//add 1 to stackPushCount
+								totalStackPushTime += stack.pushTime;
+								stackPushCount++;
 								break;
 							case "POP":
 								next = stack.pop();
-								//add to totalStackPoptime
-								//add 1 to stackPopCount
+								totalStackPopTime += stack.popTime;
+								stackPopCount++;
 								break;
 							case "FINDMAX":
 								next = stack.getMax();
@@ -85,13 +85,13 @@ public class Main {
 								next = fileInput.nextInt();
 								
 								queue.enqueue(next);
-								//add to totalQueueEnqueueTime
-								//add 1 to queueEnqueueCount
+								totalQueueEnqueueTime += queue.enqueueTime;
+								queueEnqueueCount++;
 								break;
 							case "DEQUEUE":
 								next = queue.dequeue();
-								//add to totalQueueDequeueTime
-								//add 1 to queueEnqueueCount
+								totalQueueDequeueTime += queue.dequeueTime;
+								queueDequeueCount++;
 								break;
 						}
 						
