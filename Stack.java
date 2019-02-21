@@ -13,7 +13,7 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 	public Long popTime;
 	public Long maxTime;
 	
-	public class Node {
+	private static class Node<Item> {
 		public Item item;
 		public Node next;
 	}
@@ -50,13 +50,13 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
 	
     public void push(Item item) {
     	Long pushStart = System.nanoTime();
-    	first = new Node();
-    	if(first.item == null) {
+    	if(this.first.item == null) {
+    		first = new Node();
     		first.item = item;  
     		max = first.item;
     	}
     	else {
-	        Node oldfirst = first;
+	        Node oldfirst = this.first;
 	        first.item = item;
 	        if(first.item.compareTo(oldfirst.item) > 0) {
 	        	max = first.item;
@@ -76,7 +76,7 @@ public class Stack<Item extends Comparable<Item>> implements Iterable<Item>{
         first = first.next;            // delete first node
         n--;
 	    
-	if(max != null && item.compareTo(first.item) == 0) {
+	if(max != null && item.compareTo(this.first.item) == 0) {
 		max = null;
 		newMax();
 		}
